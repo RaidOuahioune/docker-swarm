@@ -20,9 +20,9 @@ cd nginx && docker build -t nginx-loadbalancing  .
 docker swarm init
 ```
 
-By running this u 'll create a manager node. For this project we will be usig only one host .Later on we can set mutlple host service communication
+By running this u'll create a manager node. For this project we will be usig only one host. Later on we can set multiple host service communication
 
-## Finnaly we can start the orchastration is out master host
+## Finnaly we can start the orchastration in our master host
 
 ```bash
 docker stack deploy -c docker-compose.yaml swarm-app
