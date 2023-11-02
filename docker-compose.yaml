@@ -1,0 +1,32 @@
+version: '3.2'
+services:
+  nodeapp:
+   image: node-app
+   ports:
+     - 5000:5000
+   deploy:
+     replicas: 15
+     restart_policy:
+       max_attempts: 3
+       condition: on-failure       
+     update_config:
+       parallelism: 3
+       delay: 10s
+   networks: 
+    - balance 
+  proxy:
+    image: nginx-loadbalancing
+    ports:
+      - 7000:80
+    depends_on:
+      - nodeapp
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks: 
+      - balance
+     
+networks:
+  balance:
+    attachable: true
+    driver: overlay
